@@ -14,12 +14,11 @@ For more information on stub files, view here: https://mypy.readthedocs.io/en/st
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Type, overload
+from typing import overload
 
 from upath import UPath
 
 from lsdb.catalog.dataset.dataset import Dataset
-from lsdb.catalog.margin_catalog import MarginCatalog
 from lsdb.core.search.abstract_search import AbstractSearch
 from lsdb.loaders.hats.abstract_catalog_loader import CatalogTypeVar
 
@@ -35,7 +34,7 @@ def read_hats(
 @overload
 def read_hats(
     path: str | Path | UPath,
-    catalog_type: Type[CatalogTypeVar],
+    catalog_type: type[CatalogTypeVar],
     search_filter: AbstractSearch | None = None,
     columns: list[str] | None = None,
     margin_cache: str | Path | UPath | None = None,

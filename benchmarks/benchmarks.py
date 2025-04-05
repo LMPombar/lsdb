@@ -12,6 +12,7 @@ import lsdb
 from benchmarks.utils import upsample_array
 from lsdb.core.search.box_search import box_filter
 from lsdb.core.search.polygon_search import get_cartesian_polygon
+from lsdb.types import CatalogTypeVar
 
 TEST_DIR = Path(__file__).parent.parent / "tests"
 DATA_DIR_NAME = "data"
@@ -21,15 +22,30 @@ SMALL_SKY_XMATCH_NAME = "small_sky_xmatch"
 BENCH_DATA_DIR = Path(__file__).parent / "data"
 
 
-def load_small_sky():
+def load_small_sky() -> CatalogTypeVar | None:
+    """Load small sky catalog in the path `TEST_DIR`/`DATA_DIR_NAME`/`SMALL_SKY_DIR_NAME`.
+
+    Returns:
+        Dataset loaded by the `lsdb.read_hats` function.
+    """
     return lsdb.read_hats(TEST_DIR / DATA_DIR_NAME / SMALL_SKY_DIR_NAME)
 
 
-def load_small_sky_order1():
+def load_small_sky_order1() -> CatalogTypeVar | None:
+    """Load small sky order1 catalog in the path `TEST_DIR`/`DATA_DIR_NAME`/`SMALL_SKY_ORDER1`.
+
+    Returns:
+        Dataset loaded by the `lsdb.read_hats` function.
+    """
     return lsdb.read_hats(TEST_DIR / DATA_DIR_NAME / SMALL_SKY_ORDER1)
 
 
 def load_small_sky_xmatch():
+    """Load small sky xmatch catalog in the path `TEST_DIR`/`DATA_DIR_NAME`/`SMALL_SKY_XMATCH_NAME`.
+
+    Returns:
+        Dataset loaded by the `lsdb.read_hats` function.
+    """
     return lsdb.read_hats(TEST_DIR / DATA_DIR_NAME / SMALL_SKY_XMATCH_NAME)
 
 
@@ -66,8 +82,20 @@ def time_box_filter_on_partition():
 
 
 def time_create_midsize_catalog():
+    """Load midsize catalog in the path `BENCH_DATA_DIR/midsize_catalog/`.
+    The midsize dataset contains 30_000 partitions at order 6.
+
+    Returns:
+        Dataset loaded by the `lsdb.read_hats` function.
+    """
     return lsdb.read_hats(BENCH_DATA_DIR / "midsize_catalog")
 
 
 def time_create_large_catalog():
+    """Load midsize catalog in the path `BENCH_DATA_DIR/large_catalog/`.
+    The large dataset contains 196_607 partitions at order 7.
+
+    Returns:
+        Dataset loaded by the `lsdb.read_hats` function.
+    """
     return lsdb.read_hats(BENCH_DATA_DIR / "large_catalog")

@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from typing import Type
-
 import astropy
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -25,7 +23,7 @@ def plot_points(
     fov: Quantity | tuple[Quantity, Quantity] | None = None,
     center: SkyCoord | None = None,
     wcs: astropy.wcs.WCS | None = None,
-    frame_class: Type[BaseFrame] | None = None,
+    frame_class: type[BaseFrame] | None = None,
     ax: WCSAxes | None = None,
     fig: Figure | None = None,
     **kwargs,
@@ -36,6 +34,7 @@ def plot_points(
     The scatter points can be colored by a column of the catalog by using the `color_col` kwarg
 
     Args:
+        df (pd.DataFrame): The dataframe containing the points to plot
         ra_column (str | None): The column to use as the RA of the points to plot. Defaults to the
             catalog's default RA column. Useful for plotting joined or cross-matched points
         dec_column (str | None): The column to use as the Declination of the points to plot. Defaults to
@@ -51,7 +50,7 @@ def plot_points(
         center (SkyCoord | None): The center of the projection in the WCS (Default: SkyCoord(0, 0))
         wcs (WCS | None): The WCS to specify the projection of the plot. If used, all other WCS parameters
             are ignored and the parameters from the WCS object is used.
-        frame_class (Type[BaseFrame] | None): The class of the frame for the WCSAxes to be initialized with.
+        frame_class (type[BaseFrame] | None): The class of the frame for the WCSAxes to be initialized with.
             if the `ax` kwarg is used, this value is ignored (By Default uses EllipticalFrame for full
             sky projection. If FOV is set, RectangularFrame is used)
         ax (WCSAxes | None): The matplotlib axes to plot onto. If None, an axes will be created to be used. If

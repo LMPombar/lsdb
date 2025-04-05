@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import warnings
-from typing import TYPE_CHECKING, Type
+from typing import TYPE_CHECKING
 
 import nested_dask as nd
 from hats.pixel_tree import PixelAlignment
@@ -75,7 +75,7 @@ def crossmatch_catalog_data(
     right: Catalog,
     suffixes: tuple[str, str],
     algorithm: (
-        Type[AbstractCrossmatchAlgorithm] | BuiltInCrossmatchAlgorithm
+        type[AbstractCrossmatchAlgorithm] | BuiltInCrossmatchAlgorithm
     ) = BuiltInCrossmatchAlgorithm.KD_TREE,
     **kwargs,
 ) -> tuple[nd.NestedFrame, DaskDFPixelMap, PixelAlignment]:
@@ -132,8 +132,8 @@ def crossmatch_catalog_data(
 
 
 def get_crossmatch_algorithm(
-    algorithm: Type[AbstractCrossmatchAlgorithm] | BuiltInCrossmatchAlgorithm,
-) -> Type[AbstractCrossmatchAlgorithm]:
+    algorithm: type[AbstractCrossmatchAlgorithm] | BuiltInCrossmatchAlgorithm,
+) -> type[AbstractCrossmatchAlgorithm]:
     """Gets the function to perform a cross-match algorithm
 
     Args:

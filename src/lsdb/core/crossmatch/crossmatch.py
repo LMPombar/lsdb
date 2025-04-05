@@ -1,5 +1,3 @@
-from typing import Type
-
 import nested_pandas as npd
 import pandas as pd
 
@@ -15,7 +13,7 @@ def _validate_and_convert_to_catalog(
     """Validate arguments and convert a DataFrame or NestedFrame to a Catalog."""
     if isinstance(data, Catalog):
         return data
-    if not isinstance(data, (pd.DataFrame, npd.NestedFrame)):
+    if not isinstance(data, pd.DataFrame | npd.NestedFrame):
         raise TypeError(f"Argument must be a DataFrame, NestedFrame, or Catalog, not {type(data)}.")
 
     # Check for "ra" and "dec" columns. If they do not exist, try "RA" and "DEC" before raising an error.
@@ -51,7 +49,7 @@ def crossmatch(
     dec_column: str | None = None,
     suffixes: tuple[str, str] | None = None,
     algorithm: (
-        Type[AbstractCrossmatchAlgorithm] | BuiltInCrossmatchAlgorithm
+        type[AbstractCrossmatchAlgorithm] | BuiltInCrossmatchAlgorithm
     ) = BuiltInCrossmatchAlgorithm.KD_TREE,
     output_catalog_name: str | None = None,
     require_right_margin: bool = False,
@@ -73,7 +71,7 @@ def crossmatch(
             if passing dataframes. Defaults to None.
         suffixes (tuple[str, str], optional): Suffixes to append to overlapping column names.
             Defaults to None.
-        algorithm (Type[AbstractCrossmatchAlgorithm] | BuiltInCrossmatchAlgorithm, optional): The
+        algorithm (type[AbstractCrossmatchAlgorithm] | BuiltInCrossmatchAlgorithm, optional): The
             crossmatch algorithm to use. Defaults to BuiltInCrossmatchAlgorithm.KD_TREE.
         output_catalog_name (str, optional): The name of the output catalog. Defaults to None.
         require_right_margin (bool, optional): Whether to require a right margin. Defaults to False.

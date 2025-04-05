@@ -1,7 +1,8 @@
 # pylint: disable=duplicate-code
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Callable
+from collections.abc import Callable
+from typing import TYPE_CHECKING
 
 import nested_dask as nd
 import nested_pandas as npd
@@ -44,6 +45,8 @@ def perform_merge_map(
         catalog_structure (hc.TableProperties): the catalog info of the catalog
         map_structure (hc.TableProperties): the catalog info of the map
         func (Callable): method to apply to the two partitions
+        *args: Additional positional arguments to call `func` with.
+        **kwargs: Additional keyword args to pass to the function. These are passed to the Dask DataFrame
 
     Returns:
         A dataframe with the result of calling `func`

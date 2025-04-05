@@ -28,6 +28,22 @@ class KdTreeCrossmatch(AbstractCrossmatchAlgorithm):
         n_neighbors: int = 1,
         radius_arcsec: float = 1,
     ):
+        """
+        Validates the input parameters for the crossmatch operation.
+
+        Args:
+            left (Catalog): The left catalog to be used in the crossmatch.
+            right (Catalog): The right catalog to be used in the crossmatch.
+            n_neighbors (int, optional): The number of nearest neighbors to consider.
+                Must be greater than or equal to 1. Defaults to 1.
+            radius_arcsec (float, optional): The radius for the crossmatch in arcseconds.
+                Defaults to 1.
+
+        Raises:
+            ValueError: If `n_neighbors` is less than 1.
+            ValueError: If the crossmatch radius exceeds the margin threshold
+                defined in the right catalog's margin configuration.
+        """
         super().validate(left, right)
         # Validate radius
         validate_radius(radius_arcsec)
@@ -73,6 +89,15 @@ class KdTreeCrossmatch(AbstractCrossmatchAlgorithm):
         return left_idx, right_idx, extra_columns
 
     def _get_point_coordinates(self) -> tuple[npt.NDArray[np.float64], npt.NDArray[np.float64]]:
+        """Calculate the Cartesian coordinates of the points in the left and right catalogs.
+
+        The coordinates are calculated using the right ascension and declination columns from the
+        respective catalogs.
+
+        Returns:
+            tuple: A tuple containing two numpy arrays representing the Cartesian coordinates of the
+                points in the left and right catalogs.
+        """
         left_xyz = _lon_lat_to_xyz(
             lon=self.left[self.left_catalog_info.ra_column].to_numpy(),
             lat=self.left[self.left_catalog_info.dec_column].to_numpy(),

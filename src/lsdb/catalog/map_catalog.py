@@ -8,7 +8,7 @@ class MapCatalog(HealpixDataset):
 
     Attributes:
         hc_structure: `hats.MapCatalog` object representing the structure
-                      and metadata of the HATS catalog
+            and metadata of the HATS catalog
     """
 
     hc_structure: hc.catalog.MapCatalog

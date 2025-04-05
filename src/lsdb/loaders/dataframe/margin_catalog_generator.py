@@ -186,7 +186,7 @@ class MarginCatalogGenerator:
                 margin_pix.append(m_p)
 
         return pd.DataFrame(
-            zip(n_orders, part_pix, margin_pix),
+            zip(n_orders, part_pix, margin_pix, strict=False),
             columns=["partition_order", "partition_pixel", "margin_pixel"],
         )
 

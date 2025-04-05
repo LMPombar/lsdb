@@ -349,16 +349,11 @@ def pytest_collection_modifyitems(items):
     """Modify tests that use the `lsst-sphgeom` package to only run when that
     package has been installed in the development environment.
 
-    If we detect that we can import `lsst-sphgeom`, this method exits early
-    and does not modify any test items.
+    If `lsst-sphgeom` is not installed, tests marked with `@pytest.mark.sphgeom`
+    will be skipped.
     """
-    try:
-        # pylint: disable=unused-import
-        from lsst.sphgeom import ConvexPolygon
-
+    if pytest.importorskip("lsst.sphgeom", reason="lsst-sphgeom is not installed"):
         return
-    except ImportError:
-        pass
 
     for item in items:
         if any(item.iter_markers(name="sphgeom")):
