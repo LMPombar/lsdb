@@ -3,7 +3,10 @@
 For more information on writing benchmarks:
 https://asv.readthedocs.io/en/stable/writing_benchmarks.html."""
 
+from __future__ import annotations
+
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 import numpy as np
 import pandas as pd
@@ -12,7 +15,9 @@ import lsdb
 from benchmarks.utils import upsample_array
 from lsdb.core.search.box_search import box_filter
 from lsdb.core.search.polygon_search import get_cartesian_polygon
-from lsdb.types import CatalogTypeVar
+
+if TYPE_CHECKING:
+    from lsdb.catalog import Catalog
 
 TEST_DIR = Path(__file__).parent.parent / "tests"
 DATA_DIR_NAME = "data"
@@ -22,7 +27,7 @@ SMALL_SKY_XMATCH_NAME = "small_sky_xmatch"
 BENCH_DATA_DIR = Path(__file__).parent / "data"
 
 
-def load_small_sky() -> CatalogTypeVar | None:
+def load_small_sky() -> Catalog | None:
     """Load small sky catalog in the path `TEST_DIR`/`DATA_DIR_NAME`/`SMALL_SKY_DIR_NAME`.
 
     Returns:
@@ -31,7 +36,7 @@ def load_small_sky() -> CatalogTypeVar | None:
     return lsdb.read_hats(TEST_DIR / DATA_DIR_NAME / SMALL_SKY_DIR_NAME)
 
 
-def load_small_sky_order1() -> CatalogTypeVar | None:
+def load_small_sky_order1() -> Catalog | None:
     """Load small sky order1 catalog in the path `TEST_DIR`/`DATA_DIR_NAME`/`SMALL_SKY_ORDER1`.
 
     Returns:
@@ -81,7 +86,7 @@ def time_box_filter_on_partition():
     box_filter(mock_partition_df, ra=(-20, 40), dec=(-90, 90), metadata=metadata.catalog_info)
 
 
-def time_create_midsize_catalog():
+def time_create_midsize_catalog() -> Catalog | None:
     """Load midsize catalog in the path `BENCH_DATA_DIR/midsize_catalog/`.
     The midsize dataset contains 30_000 partitions at order 6.
 
@@ -91,7 +96,7 @@ def time_create_midsize_catalog():
     return lsdb.read_hats(BENCH_DATA_DIR / "midsize_catalog")
 
 
-def time_create_large_catalog():
+def time_create_large_catalog() -> Catalog | None:
     """Load midsize catalog in the path `BENCH_DATA_DIR/large_catalog/`.
     The large dataset contains 196_607 partitions at order 7.
 
