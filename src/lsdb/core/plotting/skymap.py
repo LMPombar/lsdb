@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from typing import Any, Callable
+from collections.abc import Callable
+from typing import Any
 
 import hats.pixel_math.healpix_shim as hp
 import nested_pandas as npd
@@ -18,7 +19,29 @@ def perform_inner_skymap(
     default_value: Any = 0,
     **kwargs,
 ) -> np.ndarray:
-    """Splits a partition into pixels at a target order and performs a given function on the new pixels"""
+    """Splits a partition into smaller Healpix pixels at a specified target order and applies a given function
+    to each of the new pixels.
+
+    Args:
+        partition (npd.NestedFrame): The input data partition, indexed by spatial indices.
+        func (Callable[[npd.NestedFrame, HealpixPixel], Any]): A function to apply to each new Healpix pixel.
+            The function takes a subset of the partition and a HealpixPixel object as arguments.
+        pixel (HealpixPixel): The Healpix pixel representing the current partition.
+        target_order (int): The target Healpix order to which the partition will be split.
+        default_value (Any, optional): The default value to fill in the resulting array for pixels
+            where no data is available. Defaults to 0.
+        **kwargs: Additional keyword arguments to pass to the `func`.
+
+    Returns:
+        np.ndarray: A 1D array representing the results of applying the function to each new Healpix pixel
+        at the target order. The array is filled with `default_value` for pixels with no data.
+
+    Notes:
+        - The function assumes that the input partition is indexed by spatial indices that can be converted to
+        Healpix pixels.
+        - The `spatial_index_to_healpix` function is used to map spatial indices to Healpix pixels.
+        - The resulting array is aligned with the Healpix pixel indices at the target order.
+    """
     delta_order = target_order - pixel.order
     img = np.full(1 << 2 * delta_order, fill_value=default_value)
 
@@ -69,7 +92,7 @@ def compute_skymap(
         if value is not None:
             img[np.arange(start, end)] = value
 
-    for s, e, v in zip(starts, ends, values):
+    for s, e, v in zip(starts, ends, values, strict=False):
         set_values(s, e, v)
 
     return img

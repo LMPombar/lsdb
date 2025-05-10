@@ -25,6 +25,21 @@ class BoundedKdTreeCrossmatch(KdTreeCrossmatch):
         radius_arcsec: float = 1,
         min_radius_arcsec: float = 0,
     ):
+        """
+        Validates the input parameters for the bounded KDTree cross-match operation.
+        Args:
+            left (Catalog): The left catalog to be matched.
+            right (Catalog): The right catalog to be matched.
+            n_neighbors (int, optional): The number of nearest neighbors to consider. Defaults to 1.
+            radius_arcsec (float, optional): The maximum radius for the cross-match in arcseconds.
+                Defaults to 1.
+            min_radius_arcsec (float, optional): The minimum radius for the cross-match in arcseconds.
+                Defaults to 0.
+
+        Raises:
+            ValueError: If `min_radius_arcsec` is negative.
+            ValueError: If `radius_arcsec` is less than or equal to `min_radius_arcsec`.
+        """
         super().validate(left, right, n_neighbors, radius_arcsec)
         if min_radius_arcsec < 0:
             raise ValueError("The minimum radius must be non-negative")

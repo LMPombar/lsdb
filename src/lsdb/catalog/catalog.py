@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from typing import Callable, Iterable, Literal, Type
+from collections.abc import Callable, Iterable
+from typing import Literal
 
 import dask.dataframe as dd
 import hats as hc
@@ -66,6 +67,7 @@ class Catalog(HealpixDataset):
             ddf: Dask DataFrame with the source data of the catalog
             ddf_pixel_map: Dictionary mapping HEALPix order and pixel to partition index of ddf
             hc_structure: `hats.Catalog` object with hats metadata of the catalog
+            margin: `MarginCatalog` object with the margin cache of the catalog. Can be None.
         """
         super().__init__(ddf, ddf_pixel_map, hc_structure)
         self.margin = margin
@@ -132,7 +134,7 @@ class Catalog(HealpixDataset):
         other: Catalog,
         suffixes: tuple[str, str] | None = None,
         algorithm: (
-            Type[AbstractCrossmatchAlgorithm] | BuiltInCrossmatchAlgorithm
+            type[AbstractCrossmatchAlgorithm] | BuiltInCrossmatchAlgorithm
         ) = BuiltInCrossmatchAlgorithm.KD_TREE,
         output_catalog_name: str | None = None,
         require_right_margin: bool = False,
@@ -153,7 +155,7 @@ class Catalog(HealpixDataset):
             other (Catalog): The right catalog to cross-match against
             suffixes (Tuple[str, str]): A pair of suffixes to be appended to the end of each column
                 name when they are joined. Default: uses the name of the catalog for the suffix
-            algorithm (BuiltInCrossmatchAlgorithm | Type[AbstractCrossmatchAlgorithm]): The
+            algorithm (BuiltInCrossmatchAlgorithm | type[AbstractCrossmatchAlgorithm]): The
                 algorithm to use to perform the crossmatch. Can be either a string to specify one of
                 the built-in cross-matching methods, or a custom method defined by subclassing
                 AbstractCrossmatchAlgorithm.
@@ -199,6 +201,7 @@ class Catalog(HealpixDataset):
                 Default: {left_name}_x_{right_name}
             require_right_margin (bool): If true, raises an error if the right margin is missing which could
                 lead to incomplete crossmatches. Default: False
+            **kwargs: Additional keyword arguments to pass to the crossmatch algorithm.
 
         Returns:
             A Catalog with the data from the left and right catalogs merged with one row for each
@@ -534,6 +537,7 @@ class Catalog(HealpixDataset):
             other (lsdb.Catalog): the right catalog to merge to
             suffixes (Tuple[str,str]): the suffixes to apply to each partition's column names
             direction (str): the direction to perform the merge_asof
+            output_catalog_name (str): The name of the resulting catalog to be stored in metadata
 
         Returns:
             A new catalog with the columns from each of the input catalogs with their respective suffixes

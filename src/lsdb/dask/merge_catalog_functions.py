@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Callable, Sequence
+from collections.abc import Callable, Sequence
+from typing import TYPE_CHECKING
 
 import hats.pixel_math.healpix_shim as hp
 import nested_dask as nd
@@ -275,7 +276,7 @@ def generate_meta_df_for_joined_tables(
     """
     meta = {}
     # Construct meta for crossmatched catalog columns
-    for table, suffix in zip(catalogs, suffixes):
+    for table, suffix in zip(catalogs, suffixes, strict=False):
         for name, col_type in table.dtypes.items():
             if name not in paths.HIVE_COLUMNS:
                 meta[name + suffix] = pd.Series(dtype=col_type)

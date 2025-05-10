@@ -167,7 +167,7 @@ def write_partitions(
         pixels.append(pixel)
 
     results = dask.compute(*results)
-    counts, histograms = list(zip(*results))
+    counts, histograms = list(zip(*results, strict=False))
 
     non_empty_indices = np.nonzero(counts)
     non_empty_pixels = np.array(pixels)[non_empty_indices]

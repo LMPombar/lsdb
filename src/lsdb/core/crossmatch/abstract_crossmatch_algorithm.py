@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 
 # pylint: disable=too-many-instance-attributes, too-many-arguments
-class AbstractCrossmatchAlgorithm(ABC):
+class AbstractCrossmatchAlgorithm(ABC):  # noqa: B024
     """Abstract class used to write a crossmatch algorithm
 
     To specify a custom function, write a class that subclasses the

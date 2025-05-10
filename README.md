@@ -1,12 +1,11 @@
 <img src="https://github.com/astronomy-commons/lsdb/blob/main/docs/lincc-logo.png?raw=true" width="300" height="100">
 
-
 # LSDB
 
 [![Template](https://img.shields.io/badge/Template-LINCC%20Frameworks%20Python%20Project%20Template-brightgreen)](https://lincc-ppt.readthedocs.io/en/stable/)
 
 [![PyPI](https://img.shields.io/pypi/v/lsdb?color=blue&logo=pypi&logoColor=white)](https://pypi.org/project/lsdb/)
-[![Conda](https://img.shields.io/conda/vn/conda-forge/lsdb.svg?color=blue&logo=condaforge&logoColor=white)](https://anaconda.org/conda-forge/lsdb) 
+[![Conda](https://img.shields.io/conda/vn/conda-forge/lsdb.svg?color=blue&logo=condaforge&logoColor=white)](https://anaconda.org/conda-forge/lsdb)
 
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/astronomy-commons/lsdb/smoke-test.yml)](https://github.com/astronomy-commons/lsdb/actions/workflows/smoke-test.yml)
 [![codecov](https://codecov.io/gh/astronomy-commons/lsdb/branch/main/graph/badge.svg)](https://codecov.io/gh/astronomy-commons/lsdb)
@@ -17,7 +16,7 @@
 
 ## LSDB - Large Survey DataBase
 
-A framework to facilitate and enable spatial analysis for extremely large astronomical databases 
+A framework to facilitate and enable spatial analysis for extremely large astronomical databases
 (i.e. querying and crossmatching ~10⁹ sources). This package uses dask to parallelize operations across
 multiple HATS partitioned surveys.
 
@@ -40,8 +39,8 @@ for complete installation instructions and contribution best practices.
 
 ## Citation
 
-If you use LSDB in your work, we ask the you cite the conference proceedings 
-["Using LSDB to enable large-scale catalog distribution, cross-matching, and analytics"](https://ui.adsabs.harvard.edu/abs/2025arXiv250102103C). 
+If you use LSDB in your work, we ask the you cite the conference proceedings
+["Using LSDB to enable large-scale catalog distribution, cross-matching, and analytics"](https://ui.adsabs.harvard.edu/abs/2025arXiv250102103C).
 Find full citation information [here](./CITATION.bib).
 
 ## Acknowledgements
@@ -51,7 +50,7 @@ This project is supported by Schmidt Sciences.
 This project is based upon work supported by the National Science Foundation
 under Grant No. AST-2003196.
 
-This project acknowledges support from the DIRAC Institute in the Department of 
-Astronomy at the University of Washington. The DIRAC Institute is supported 
-through generous gifts from the Charles and Lisa Simonyi Fund for Arts and 
+This project acknowledges support from the DIRAC Institute in the Department of
+Astronomy at the University of Washington. The DIRAC Institute is supported
+through generous gifts from the Charles and Lisa Simonyi Fund for Arts and
 Sciences, and the Washington Research Foundation.
